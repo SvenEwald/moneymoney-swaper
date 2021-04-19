@@ -1,6 +1,6 @@
 WebBanking {
   version = 0.1,
-  url = "https://www.swaper.com",
+  url = "https://swaper.com",
   services = { "Swaper" }
 }
 
@@ -13,11 +13,11 @@ end
 function InitializeSession (protocol, bankCode, username, username2, password, username3)
   connection = Connection()
   content, charset, mimeType, filename, headers = connection:request("POST",
-    "https://www.swaper.com/rest/public/login", '{"name":"' .. username .. '", "password":"' .. password .. '"}', "application/json;charset=UTF-8")
+    "https://swaper.com/rest/public/login", '{"name":"' .. username .. '", "password":"' .. password .. '"}', "application/json;charset=UTF-8")
   local token = headers["_csrf"]
- headers = {accept = "application/json",Referer="https://www.swaper.com/"}
+ headers = {accept = "application/json",Referer="https://swaper.com/"}
  headers["X-XSRF-TOKEN"]=token
- connection:request("GET","https://www.swaper.com/rest/public/logged-in","","",headers)
+ connection:request("GET","https://swaper.com/rest/public/logged-in","","",headers)
 end
 
 function ListAccounts (knownAccounts)
@@ -43,7 +43,7 @@ end
 function AccountSummary ()
   local content = connection:request(
     "GET",
-    "https://www.swaper.com/rest/public/profile/overview",
+    "https://swaper.com/rest/public/profile/overview",
     "",
     "application/x-www-form-urlencoded; charset=UTF-8",
     headers
@@ -52,6 +52,6 @@ function AccountSummary ()
 end
 
 function EndSession ()
-  connection:request("GET","https://www.swaper.com/rest/public/logout","","",headers)
+  connection:request("GET","https://swaper.com/rest/public/logout","","",headers)
   return nil
 end
